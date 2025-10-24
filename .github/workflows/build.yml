@@ -25,10 +25,13 @@ jobs:
       - name: Read tag from file
         id: read_tag
         run: echo "tag=$(cat latest-tag.txt)" >> $GITHUB_OUTPUT
+      - name: Read build path from file
+        id: read_bp
+        run: echo "bp=$(cat build-path.txt)" >> $GITHUB_OUTPUT
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.read_tag.outputs.tag }}
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           files: |
-            minio
+            ${{ steps.read_bp.outputs.bp }}/minio

@@ -15,9 +15,8 @@ cd "$TMP_DIR/minio"
 
 make build
 
-pwd
-ls -lah
+pwd > build-path.txt
 
-#docker build -t "ghcr.io/jadolg/minio:$LATEST_TAG" .
-#echo "Docker image built: ghcr.io/jadolg/minio:$LATEST_TAG"
-#docker push "ghcr.io/jadolg/minio:$LATEST_TAG"
+docker build -t "ghcr.io/jadolg/minio:$LATEST_TAG" .
+echo "Docker image built: ghcr.io/jadolg/minio:$LATEST_TAG"
+docker push "ghcr.io/jadolg/minio:$LATEST_TAG"
