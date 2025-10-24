@@ -5,7 +5,7 @@ set -euo pipefail
 # Get latest release tag from GitHub API
 LATEST_TAG=$(curl -s https://api.github.com/repos/minio/minio/releases/latest | grep '"tag_name"' | cut -d '"' -f4 | tr '[:lower:]' '[:upper:]')
 echo "Latest release tag: $LATEST_TAG"
-echo $LATEST_TAG > latest-tag.txt
+echo "tag=$(cat latest-tag.txt)" >> $GITHUB_OUTPUT
 
 TMP_DIR=$(mktemp -d)
 echo "Cloning into temp dir: $TMP_DIR"
@@ -15,7 +15,7 @@ cd "$TMP_DIR/minio"
 
 make build
 
-pwd > build-path.txt
+echo "bp=$(pwd)" >> $GITHUB_OUTPUT
 
 docker build -t "ghcr.io/jadolg/minio:$LATEST_TAG" .
 echo "Docker image built: ghcr.io/jadolg/minio:$LATEST_TAG"
