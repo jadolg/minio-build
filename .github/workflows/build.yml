@@ -28,5 +28,6 @@ jobs:
         with:
           tag_name: ${{ steps.build.outputs.tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          body: ${{ steps.build.outputs.body }}
           files: |
             ${{ steps.build.outputs.bp }}/minio
