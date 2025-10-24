@@ -25,13 +25,10 @@ jobs:
       - name: Read tag from file
         id: read_tag
         run: echo "tag=$(cat latest-tag.txt)" >> $GITHUB_OUTPUT
-      - name: Create Release
-        id: create_release
-        uses: comnoco/create-release-action@v2.0.5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.read_tag.outputs.tag }}
-          release_name: ${{ steps.read_tag.outputs.tag }}
-          draft: false
-          prerelease: false
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          files: |
+            minio

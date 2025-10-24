@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Get latest release tag from GitHub API
-LATEST_TAG=$(curl -s https://api.github.com/repos/minio/minio/releases/latest | grep '"tag_name"' | cut -d '"' -f4)
+LATEST_TAG=$(curl -s https://api.github.com/repos/minio/minio/releases/latest | grep '"tag_name"' | cut -d '"' -f4 | tr '[:lower:]' '[:upper:]')
 echo "Latest release tag: $LATEST_TAG"
 echo $LATEST_TAG > latest-tag.txt
 
@@ -13,7 +13,7 @@ git clone --depth 1 --branch "$LATEST_TAG" https://github.com/minio/minio.git "$
 
 cd "$TMP_DIR/minio"
 
-make build  
+make build
 
 docker build -t "ghcr.io/jadolg/minio:$LATEST_TAG" .
 echo "Docker image built: ghcr.io/jadolg/minio:$LATEST_TAG"
