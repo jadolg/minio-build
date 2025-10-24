@@ -5,6 +5,7 @@ set -euo pipefail
 # Get latest release tag from GitHub API
 LATEST_TAG=$(curl -s https://api.github.com/repos/minio/minio/releases/latest | grep '"tag_name"' | cut -d '"' -f4)
 echo "Latest release tag: $LATEST_TAG"
+echo $LATEST_TAG > latest-tag.txt
 
 TMP_DIR=$(mktemp -d)
 echo "Cloning into temp dir: $TMP_DIR"
