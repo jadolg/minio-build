@@ -27,6 +27,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.build.outputs.tag }}
-          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           files: |
             ${{ steps.build.outputs.bp }}/minio
